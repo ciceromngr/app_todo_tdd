@@ -51,8 +51,8 @@ class CreateUserUseCase {
     }
 
     private async verifyUsernameEmailAlreadyExist({ email, username }: VerifyUsernameEmail): Promise<void> {
-        const emailAlreadyExist = await this.repository.userRepository.findByEmail(email)
-        const usernameAlreadyExist = await this.repository.userRepository.findByUsername(username)
+        const emailAlreadyExist = await this.repository.userRepository.emailIsExist(email)
+        const usernameAlreadyExist = await this.repository.userRepository.usernameIsExist(username)
 
         if (emailAlreadyExist) {
             throw new ErrorUserAlreadyExist({

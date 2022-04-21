@@ -5,12 +5,12 @@ class InMemoryUserRepository implements UserRepository {
 
     public user: Users[] = []
 
-    async findByEmail(email: string): Promise<Boolean> {
+    async emailIsExist(email: string): Promise<Boolean> {
         const emailAlreadyExist = this.user.find(user => user.email === email)
         return emailAlreadyExist ? true : false
     }
 
-    async findByUsername(username: string): Promise<Boolean> {
+    async usernameIsExist(username: string): Promise<Boolean> {
         const emailAlreadyExist = this.user.find(user => user.username === username)
         return emailAlreadyExist ? true : false
     }

@@ -7,6 +7,6 @@ export interface CreateUserData {
 
 export interface UserRepository {
     create(data: CreateUserData): Promise<void>
-    findByEmail(email: string): Promise<Boolean>
-    findByUsername(username: string): Promise<Boolean>
+    emailIsExist(email: string): Promise<Boolean>
+    usernameIsExist(username: string): Promise<Boolean>
 }
