@@ -21,11 +21,7 @@ describe('[E2E] Router User', () => {
     it('should NOT be possible to register a user with invalid params', async () => {
         const response = await request(app)
             .post('/user/register')
-            .send({
-                ...dataRequest,
-                username: ''
-            })
-
+            .send()
         expect(response.status).toBe(401)
         expect(response.body).toEqual({ message: 'Credentials invalid', statusCode: 401 })
     })
@@ -49,6 +45,20 @@ describe('[E2E] Router User', () => {
         expect(responseErrorUsernameAlreadyExist.status).toBe(401)
         expect(responseErrorUsernameAlreadyExist.body).toEqual({
             message: 'Email or Username Already Exist!',
+            statusCode: 401
+        })
+    })
+    
+    it('should NOT be possible to register a user with email format invalid', async () => {
+        const responseErrorUsernameAlreadyExist = await request(app)
+            .post('/user/register')
+            .send({
+                ...dataRequest,
+                email: 'other_format_invalid.com'
+            })
+        expect(responseErrorUsernameAlreadyExist.status).toBe(401)
+        expect(responseErrorUsernameAlreadyExist.body).toEqual({
+            message: 'Check if the email is correct',
             statusCode: 401
         })
     })
