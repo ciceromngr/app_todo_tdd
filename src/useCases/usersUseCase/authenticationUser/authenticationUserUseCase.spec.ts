@@ -37,4 +37,15 @@ describe('Authentication User Use Case', () => {
             statusCode: 401
         }))
     })
+
+    it('should NOT be possible to effect to login with uername or password incorrect', async () => {
+        const { sut } = makeSut()
+        expect(sut.execute({
+            password: 'password_invalid',
+            username: 'username_invalid'
+        })).rejects.toEqual(new ErrorCredentials({
+            message: 'Username or password invalids',
+            statusCode: 401
+        }))
+    })
 })
