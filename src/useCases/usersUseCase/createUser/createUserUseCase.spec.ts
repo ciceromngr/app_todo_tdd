@@ -85,7 +85,10 @@ describe('Create User Use Case', () => {
             password: '',
             username: ''
         }
-        await expect(sut.create(invalidUserParams)).rejects.toEqual(new ErrorCredentials())
+        await expect(sut.create(invalidUserParams)).rejects.toEqual(new ErrorCredentials({
+            message: 'Credentials invalid',
+            statusCode: 401
+        }))
         expect(inMemoryRepository.user).toEqual([])
     })
 

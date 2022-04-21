@@ -1,4 +1,5 @@
 import express, { Express, NextFunction, Request, Response } from 'express'
+import authenticationUserRouter from './routers/userRouters/authenticationUser.routes'
 import createUserRouter from './routers/userRouters/createUser.routes'
 
 export const app = express()
@@ -20,6 +21,7 @@ class App {
 
     router() {
         this.server.use(createUserRouter)
+        this.server.use(authenticationUserRouter)
     }
 
     exceptionsHandles() {

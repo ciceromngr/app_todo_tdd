@@ -34,7 +34,10 @@ class CreateUserUseCase {
         })
 
         if (!(await schema.isValid({ name, username, email, password }))) {
-            throw new ErrorCredentials()
+            throw new ErrorCredentials({
+                message: 'Credentials invalid',
+                statusCode: 401
+            })
         }
 
         const isValid = this.repository.emailValidator.isValid(email)
