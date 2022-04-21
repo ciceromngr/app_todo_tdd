@@ -37,14 +37,30 @@ describe('Authentication User Use Case', () => {
             statusCode: 401
         }))
     })
+    
 
     it('should NOT be possible to effect to login with uername or password incorrect', async () => {
-        const { sut } = makeSut()
+        const { sut, inMemoryRepository } = makeSut()
+        await inMemoryRepository.create({
+            name: 'test',
+            email: 'test@test.com',
+            password: '$2b$10$31krEWty57ui.q2PhzWl0eKt3gR3GFXWi86oABezyIcbU4IyVIwRG',
+            username: 'testing'
+        })
+        
         expect(sut.execute({
-            password: 'password_invalid',
+            password: '123123',
             username: 'username_invalid'
         })).rejects.toEqual(new ErrorCredentials({
-            message: 'Username or password invalids',
+            message: 'Username invalids',
+            statusCode: 401
+        }))
+
+        expect(sut.execute({
+            password: 'password_invalid',
+            username: 'testing'
+        })).rejects.toEqual(new ErrorCredentials({
+            message: 'password invalids',
             statusCode: 401
         }))
     })

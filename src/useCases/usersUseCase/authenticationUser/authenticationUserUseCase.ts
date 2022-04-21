@@ -29,7 +29,7 @@ class AuthenticationUserUseCase {
 
         if (!userExist) {
             throw new ErrorCredentials({
-                message: 'Username or password invalids',
+                message: 'Username invalids',
                 statusCode: 401
             })
         }
@@ -37,31 +37,31 @@ class AuthenticationUserUseCase {
         //verificar se o password é o mesmo do banco
         const comparePassHash = await compare(password, userExist.password)
 
-        if(!comparePassHash) {
-            throw new ErrorCredentials({
-                message: 'Username or password invalids',
-                statusCode: 401
-            })
-        }
-
-        //criar o token e retorna
-        const secret = process.env.JWT_SECRET || ''
-        const token = sign(
-            {
-                user: {
-                    name: userExist.name,
-                    username: userExist.username,
-                    email: userExist.email
+        if(comparePassHash) {
+            //criar o token e retorna
+            const secret = process.env.JWT_SECRET || ''
+            const token = sign(
+                {
+                    user: {
+                        name: userExist.name,
+                        username: userExist.username,
+                        email: userExist.email
+                    }
+                }, 
+                secret,
+                {
+                    expiresIn: '1d',
+                    subject: userExist.id
                 }
-            }, 
-            secret,
-            {
-                expiresIn: '1d',
-                subject: userExist.id
-            }
-        )
-
-        return token
+            )
+    
+            return token
+        }
+        
+        throw new ErrorCredentials({
+            message: 'password invalids',
+            statusCode: 401
+        })
     }
 
 }
