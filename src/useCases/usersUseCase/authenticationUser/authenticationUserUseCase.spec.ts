@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { InMemoryUserRepository } from "../../../../tests/repositories/InMemoryUserRepository"
+import { ErrorCredentials } from '../../../middlewares/err/ErrorCredentials'
 import { AuthenticationUserUseCase } from "./authenticationUserUseCase"
 const makeSut = () => {
     const inMemoryRepository = new InMemoryUserRepository()
@@ -24,5 +25,16 @@ describe('Authentication User Use Case', () => {
         })
         
         expect(token).toBeTruthy()
+    })
+    
+    it('should NOT be possible to effect to login with params invalid', async () => {
+        const { sut } = makeSut()
+        expect(sut.execute({
+            password: '',
+            username: ''
+        })).rejects.toEqual(new ErrorCredentials({
+            message: 'Credentials invalid',
+            statusCode: 401
+        }))
     })
 })
