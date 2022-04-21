@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "dev": "tsnd src/server.ts",
-        "test": "jest --watchAll --detectOpenHandles --runInBand --coverage=true",
+        "test": "jest --watch --detectOpenHandles --runInBand --coverage=false",
         "test:e2e": "yarn test --config jest-e2e.config.ts"
     },
     "dependencies": {
