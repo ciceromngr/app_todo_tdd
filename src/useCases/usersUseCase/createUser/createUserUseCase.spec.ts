@@ -1,4 +1,4 @@
-import { InMemoryCreateUserRepository } from "../../../../tests/repositories/InMemoryCreateUserRepository";
+import { InMemoryUserRepository } from "../../../../tests/repositories/InMemoryUserRepository";
 import { ErrorCredentials } from "../../../middlewares/err/ErrorCredentials";
 import { ErrorFormat } from "../../../middlewares/err/ErrorFormat";
 import { ErrorUserAlreadyExist } from '../../../middlewares/err/ErrorUserAlreadyExist';
@@ -7,11 +7,11 @@ import { EmailValidator } from "../../../utils/helpers/EmailValidator";
 import { CreateUserUseCase } from "./createUserUseCase";
 
 const makesut = () => {
-    const inMemoryRepository = new InMemoryCreateUserRepository()
+    const inMemoryRepository = new InMemoryUserRepository()
     const emailValidator = new EmailValidator()
     const crypter = new Crypter()
     const sut = new CreateUserUseCase({
-        createUserRepository: inMemoryRepository,
+        userRepository: inMemoryRepository,
         emailValidator,
         crypter
     })

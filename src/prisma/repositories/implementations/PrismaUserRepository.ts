@@ -1,7 +1,7 @@
 import { prismaClient } from "../../prismaClient";
-import { CreateUserData, CreateUserRepository } from "../CreateUserRepository";
+import { CreateUserData, UserRepository } from "../UserRepository";
 
-class PrismaCreateUserRepository implements CreateUserRepository {
+class PrismaUserRepository implements UserRepository {
 
     async findByEmail(email: string): Promise<Boolean> {
         const emailAlreadyExist = await prismaClient.user.findFirst({
@@ -25,6 +25,6 @@ class PrismaCreateUserRepository implements CreateUserRepository {
 }
 
 export {
-    PrismaCreateUserRepository
+    PrismaUserRepository
 };
 

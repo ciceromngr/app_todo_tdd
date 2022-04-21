@@ -5,7 +5,7 @@ export interface CreateUserData {
     password: string
 }
 
-export interface CreateUserRepository {
+export interface UserRepository {
     create(data: CreateUserData): Promise<void>
     findByEmail(email: string): Promise<Boolean>
     findByUsername(username: string): Promise<Boolean>

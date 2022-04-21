@@ -1,7 +1,7 @@
 import { Users } from "../../src/prisma/models/Users"
-import { CreateUserData, CreateUserRepository } from "../../src/prisma/repositories/CreateUserRepository"
+import { CreateUserData, UserRepository } from "../../src/prisma/repositories/UserRepository"
 
-class InMemoryCreateUserRepository implements CreateUserRepository {
+class InMemoryUserRepository implements UserRepository {
 
     public user: Users[] = []
 
@@ -26,6 +26,6 @@ class InMemoryCreateUserRepository implements CreateUserRepository {
 }
 
 export {
-    InMemoryCreateUserRepository
+    InMemoryUserRepository
 }
 

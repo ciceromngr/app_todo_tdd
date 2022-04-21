@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { ErrorCredentials } from "../../../middlewares/err/ErrorCredentials";
 import { ErrorFormat } from '../../../middlewares/err/ErrorFormat';
 import { ErrorUserAlreadyExist } from '../../../middlewares/err/ErrorUserAlreadyExist';
-import { CreateUserRepository } from "../../../prisma/repositories/CreateUserRepository";
+import { UserRepository } from "../../../prisma/repositories/UserRepository";
 import { Crypter } from '../../../utils/helpers/Crypter';
 import { EmailValidator } from '../../../utils/helpers/EmailValidator';
 import { CreateUserResponse } from "./interfaces/createUserResponse";
@@ -14,7 +14,7 @@ export interface VerifyUsernameEmail {
 }
 
 export type ReceiveConstructorParams = {
-    createUserRepository: CreateUserRepository,
+    userRepository: UserRepository,
     crypter: Crypter,
     emailValidator: EmailValidator
 }
@@ -47,12 +47,12 @@ class CreateUserUseCase {
 
         const passwordHashed = await this.repository.crypter.hashed({ value: password, saltOrRounds: 10 })
 
-        await this.repository.createUserRepository.create({ username, email, name, password: passwordHashed })
+        await this.repository.userRepository.create({ username, email, name, password: passwordHashed })
     }
 
     private async verifyUsernameEmailAlreadyExist({ email, username }: VerifyUsernameEmail): Promise<void> {
-        const emailAlreadyExist = await this.repository.createUserRepository.findByEmail(email)
-        const usernameAlreadyExist = await this.repository.createUserRepository.findByUsername(username)
+        const emailAlreadyExist = await this.repository.userRepository.findByEmail(email)
+        const usernameAlreadyExist = await this.repository.userRepository.findByUsername(username)
 
         if (emailAlreadyExist) {
             throw new ErrorUserAlreadyExist({

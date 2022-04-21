@@ -1,4 +1,4 @@
-import { PrismaCreateUserRepository } from "../../../prisma/repositories/implementations/PrismaCreateUserRepository";
+import { PrismaUserRepository } from "../../../prisma/repositories/implementations/PrismaUserRepository";
 import { Crypter } from "../../../utils/helpers/Crypter";
 import { EmailValidator } from "../../../utils/helpers/EmailValidator";
 import { CreateUserController } from "./createUserController";
@@ -6,11 +6,11 @@ import { CreateUserUseCase } from "./createUserUseCase";
 
 export class CreateUserCompose {
     public compose() {
-        const prismaCreateUserRepository = new PrismaCreateUserRepository()
+        const prismaUserRepository = new PrismaUserRepository()
         const crypter = new Crypter()
         const emailValidator = new EmailValidator()
         const createUserUseCase = new CreateUserUseCase({
-            createUserRepository: prismaCreateUserRepository,
+            userRepository: prismaUserRepository,
             crypter,
             emailValidator
         })

@@ -1,15 +1,15 @@
-import { InMemoryCreateUserRepository } from "../../../../tests/repositories/InMemoryCreateUserRepository"
+import { InMemoryUserRepository } from "../../../../tests/repositories/InMemoryUserRepository"
 import { Crypter } from "../../../utils/helpers/Crypter"
 import { EmailValidator } from "../../../utils/helpers/EmailValidator"
 import { CreateUserController } from "./createUserController"
 import { CreateUserUseCase } from "./createUserUseCase"
 
 const makeSut = () => {
-    const inMemoryRepository = new InMemoryCreateUserRepository()
+    const inMemoryRepository = new InMemoryUserRepository()
     const crypter = new Crypter()
     const emailValidator = new EmailValidator()
     const createUserUseCase = new CreateUserUseCase({
-        createUserRepository: inMemoryRepository,
+        userRepository: inMemoryRepository,
         crypter,
         emailValidator
     })
