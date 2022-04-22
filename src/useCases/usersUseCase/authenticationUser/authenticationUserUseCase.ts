@@ -29,7 +29,7 @@ class AuthenticationUserUseCase {
 
         if (!userExist) {
             throw new ErrorCredentials({
-                message: 'Username invalids',
+                message: 'Username or password invalids',
                 statusCode: 401
             })
         }
@@ -59,7 +59,7 @@ class AuthenticationUserUseCase {
         }
         
         throw new ErrorCredentials({
-            message: 'password invalids',
+            message: 'Username or password invalids',
             statusCode: 401
         })
     }

@@ -4,7 +4,7 @@ import { AuthenticationUserCompose } from "../../useCases/usersUseCase/authentic
 const authenticationUserRouter = Router()
 const { compose } = new AuthenticationUserCompose()
 
-authenticationUserRouter.post('/user/register', async (req, res) => {
+authenticationUserRouter.post('/user/auth', async (req, res) => {
     const dataBody = {
         body: req.body
     }

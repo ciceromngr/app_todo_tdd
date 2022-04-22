@@ -52,7 +52,7 @@ describe('Authentication User Use Case', () => {
             password: '123123',
             username: 'username_invalid'
         })).rejects.toEqual(new ErrorCredentials({
-            message: 'Username invalids',
+            message: 'Username or password invalids',
             statusCode: 401
         }))
 
@@ -60,7 +60,7 @@ describe('Authentication User Use Case', () => {
             password: 'password_invalid',
             username: 'testing'
         })).rejects.toEqual(new ErrorCredentials({
-            message: 'password invalids',
+            message: 'Username or password invalids',
             statusCode: 401
         }))
     })
